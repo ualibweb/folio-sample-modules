@@ -52,7 +52,7 @@ paths:
                       - b
                       - c
   /sum/body:
-    get:
+    post:
       summary: Get sum of two integers with a JSON blob
       requestBody:
         description: Two integers provided in a JSON blob
