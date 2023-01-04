@@ -12,7 +12,7 @@ public final class SumController implements SumApi {
 
   /** {@inheritDoc} */
   @Override
-  public ResponseEntity<SumResponse> sumBodyGet(InputIntegers body) {
+  public ResponseEntity<SumResponse> sumBodyPost(InputIntegers body) {
     SumResponse response = new SumResponse();
     response.setSum(body.getA() + body.getB());
 
