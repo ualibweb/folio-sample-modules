@@ -1,8 +1,7 @@
 openapi: 3.0.3
 info:
   title: Hello Spring
-  description:
-    A minimal "Hello, world" FOLIO module written in Java, inspired by the `hello-vertx` example.
+  description: A minimal "Hello, world" FOLIO module written in Java, inspired by the `hello-vertx` example.
   license:
     name: Apache License 2.0
     url: https://spdx.org/licenses/Apache-2.0
@@ -59,14 +58,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "./schemas/InputIntegers.yaml"
+              $ref: ./schemas/InputIntegers.yaml
       responses:
         "200":
           description: The sum of two provided integers
           content:
             application/json:
               schema:
-                $ref: "./schemas/SumResponse.yaml"
+                $ref: ./schemas/SumResponse.yaml
   /sum/query:
     get:
       summary: Get sum of two integers with query parameters
@@ -87,4 +86,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./schemas/SumResponse.yaml"
+                $ref: ./schemas/SumResponse.yaml
