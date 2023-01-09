@@ -9,6 +9,8 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase.RefreshMode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +35,7 @@ import org.springframework.test.context.ContextConfiguration;
 @Log4j2
 @ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
+@AutoConfigureEmbeddedDatabase(refresh = RefreshMode.NEVER)
 @ContextConfiguration(initializers = { WireMockInitializer.class })
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class BaseIntegrationTest {

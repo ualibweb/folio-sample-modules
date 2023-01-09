@@ -16,8 +16,8 @@ public class SumQueryTest extends BaseIntegrationTest {
     Response response = ra()
       .queryParam("a", 12)
       .queryParam("b", -3)
-      .post(getRequestUrl("/sum/query"));
-    response.then().statusCode(400);
+      .get(getRequestUrl("/sum/query"));
+    response.then().statusCode(200);
 
     SumResponse sumObj = response.getBody().as(SumResponse.class);
     assertThat(sumObj.getSum(), is(equalTo(9)));
