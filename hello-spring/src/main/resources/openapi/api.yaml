@@ -87,3 +87,36 @@ paths:
             application/json:
               schema:
                 $ref: ./schemas/SumResponse.yaml
+  /roll:
+    get:
+      summary: Roll a dice 
+      responses: 
+        "200":
+          description: A number from 1-6 represent the result of a dice Roll
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 5
+    post:
+      summary: Roll the dice a given times
+      requestBody:
+        description: Number of times rolling the dice
+        content:
+          application/json:
+            schema:
+              type: integer
+              example: 6
+      responses:
+        "200":
+          description: The results of all the rolls
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                example: [1, 2, 3, 4]
+                    
+
+
