@@ -31,7 +31,7 @@ public class RollTest extends BaseIntegrationTest {
   @Test
   public void testRollPost() {
     Random random = new Random();
-    Integer numRoll = random.nextInt(0, 10) + 1;
+    Integer numRoll = random.nextInt(10) + 1;
 
     Response response = ra()
       .header("Content-Type", "application/json")
