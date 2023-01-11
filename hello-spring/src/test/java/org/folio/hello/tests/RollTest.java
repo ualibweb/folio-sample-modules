@@ -8,7 +8,6 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.everyItem;
 
 
-import java.util.Random;
 import java.util.Arrays;
 
 import io.restassured.response.Response;
@@ -30,8 +29,7 @@ public class RollTest extends BaseIntegrationTest {
 
   @Test
   public void testRollPost() {
-    Random random = new Random();
-    Integer numRoll = random.nextInt(10) + 1;
+    Integer numRoll = 5;
 
     Response response = ra()
       .header("Content-Type", "application/json")

@@ -27,7 +27,7 @@ public final class RollController implements RollApi{
     /** {@inheritDoc}} */
     @Override
     public ResponseEntity<List<Integer>> rollPost(Integer n) {
-        List<Integer> response = new ArrayList<Integer>(n);
+        List<Integer> response = new ArrayList<>(n);
         for (int i = 0; i < n; ++i) {
             response.add(random.nextInt(6) + 1);
         }
