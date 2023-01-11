@@ -7,18 +7,20 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.everyItem;
 
-
 import java.util.Arrays;
 
 import io.restassured.response.Response;
 
 import org.folio.hello.BaseIntegrationTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-public class RollTest extends BaseIntegrationTest {
+
+class RollTest extends BaseIntegrationTest {
   
   @Test
-  public void testRollGet() {
+  void testRollGet() {
     Response response = ra()
       .get(getRequestUrl("/roll"));
     response.then().statusCode(200);
@@ -27,10 +29,9 @@ public class RollTest extends BaseIntegrationTest {
     assertThat(rollResult, is(both(greaterThan(0)).and(lessThan(7))));
   }
 
-  @Test
-  public void testRollPost() {
-    Integer numRoll = 5;
-
+  @ParameterizedTest
+  @ValueSource(ints = {5, 1000, 0})
+  void testRollPost(Integer numRoll) {
     Response response = ra()
       .header("Content-Type", "application/json")
       .body(numRoll.toString())
