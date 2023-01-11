@@ -117,6 +117,8 @@ paths:
                 items:
                   type: integer
                 example: [1, 2, 3, 4]
+        "400":
+          description: Bad Request. Number of rolls has to be an integer greater than or equal to 0.
                     
 
 

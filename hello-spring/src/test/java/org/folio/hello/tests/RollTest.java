@@ -42,4 +42,15 @@ class RollTest extends BaseIntegrationTest {
     Iterable<Integer> rollResults = Arrays.asList(rollResultsArray);
     assertThat(rollResults, everyItem(is(both(greaterThan(0)).and(lessThan(7)))));
   }
+
+  @Test
+  void testRollPostNegativeInput() {
+    Integer numRoll = -1;
+
+    Response response = ra()
+      .header("Content-Type", "application/json")
+      .body(numRoll.toString())
+      .post(getRequestUrl("/roll"));
+    response.then().statusCode(400);
+  }
 }
