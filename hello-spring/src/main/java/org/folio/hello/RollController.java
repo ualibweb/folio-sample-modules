@@ -15,7 +15,6 @@ public final class RollController implements RollApi{
 
     private Random random = new Random();
 
-
     /** {@inheritDoc}} */
     @Override
     public ResponseEntity<Integer> rollGet() {
