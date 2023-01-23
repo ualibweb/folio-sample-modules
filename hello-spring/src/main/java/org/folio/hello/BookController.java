@@ -69,10 +69,10 @@ public final class BookController implements BookApi {
 
   /** {@inheritDoc} */
   @Override
-  public ResponseEntity<Void> bookIdDelete(String id) {
+  public ResponseEntity<Void> bookIdDelete(UUID id) {
     // Delete the book by id
-    if (bookRepository.existsById(UUID.fromString(id))) {
-      bookRepository.deleteById(UUID.fromString(id));
+    if (bookRepository.existsById(id)) {
+      bookRepository.deleteById(id);
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -82,11 +82,8 @@ public final class BookController implements BookApi {
 
   /** {@inheritDoc} */
   @Override
-  public ResponseEntity<BookObject> bookIdPut(
-    String id,
-    BookInput updatedBook
-  ) {
-    Optional<Book> bookOptional = bookRepository.findById(UUID.fromString(id));
+  public ResponseEntity<BookObject> bookIdPut(UUID id, BookInput updatedBook) {
+    Optional<Book> bookOptional = bookRepository.findById(id);
 
     BookObject response = new BookObject();
 

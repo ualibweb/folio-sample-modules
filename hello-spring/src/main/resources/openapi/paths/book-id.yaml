@@ -1,0 +1,40 @@
+delete:
+  summary: Delete a book from the db
+  parameters:
+    - in: path
+      name: id
+      schema:
+        type: string
+        format: uuid
+      required: true
+      description: UUID of the book to delete
+  responses:
+    "200":
+      description: Successfully delete the selected book
+    "404":
+      description: Book with the given UUID is not found
+put:
+  summary: Update an existing book from the db
+  parameters:
+    - in: path
+      name: id
+      schema:
+        type: string
+        format: uuid
+      required: true
+      description: UUID of the book to update
+  requestBody:
+    description: New information for the book
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/BookInput.yaml
+  responses:
+    "200":
+      description: The book updated with its UUID
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/BookObject.yaml
+    "404":
+      description: The book with the given UUID is not found
