@@ -1,0 +1,12 @@
+type: object
+properties:
+  id:
+    type: string
+  name:
+    type: string
+    description: The name of the book
+    example: "Harry Potter"
+  page_count:
+    type: integer
+    description: The number of pages of the book
+    example: 471

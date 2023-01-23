@@ -89,8 +89,8 @@ paths:
                 $ref: ./schemas/SumResponse.yaml
   /roll:
     get:
-      summary: Roll a dice 
-      responses: 
+      summary: Roll a dice
+      responses:
         "200":
           description: A number from 1-6 represent the result of a dice Roll
           content:
@@ -119,6 +119,69 @@ paths:
                 example: [1, 2, 3, 4]
         "400":
           description: Bad Request. Number of rolls has to be an integer greater than or equal to 0.
-                    
-
-
+  /book:
+    get:
+      summary: Get all the books' information
+      responses:
+        "200":
+          description: A list of all the books with their information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./schemas/BookObject.yaml
+    post:
+      summary: Add a new book into the db
+      requestBody:
+        description: A new book with its info
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/BookInput.yaml
+      responses:
+        "200":
+          description: The book added with its UUID
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/BookObject.yaml
+  /book/{id}:
+    delete:
+      summary: Delete a book from the db
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: UUID of the book to delete
+      responses:
+        "200":
+          description: Successfully delete the selected book
+        "404":
+          description: Book with the given UUID is not found
+    put:
+      summary: Update an existing book from the db
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: UUID of the book to update
+      requestBody:
+        description: New information for the book
+        content:
+          application/json:
+            schema:
+              $ref: ./schemas/BookInput.yaml
+      responses:
+        "200":
+          description: The book updated with its UUID
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas/BookObject.yaml
+        "404":
+          description: The book with the given UUID is not found
