@@ -35,6 +35,6 @@ put:
       content:
         application/json:
           schema:
-            $ref: ../schemas/BookObject.yaml
+            $ref: ../schemas/BookWithId.yaml
     "404":
       description: The book with the given UUID is not found
