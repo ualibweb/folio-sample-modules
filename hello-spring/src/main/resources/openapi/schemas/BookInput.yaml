@@ -1,0 +1,9 @@
+type: object
+properties:
+  name:
+    type: string
+  page_count:
+    type: integer
+required:
+  - name
+additionalProperties: false

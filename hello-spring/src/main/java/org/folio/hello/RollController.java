@@ -13,7 +13,7 @@ public final class RollController implements RollApi {
 
   private Random random = new Random();
 
-  /** {@inheritDoc}} */
+  /** {@inheritDoc} */
   @Override
   public ResponseEntity<Integer> rollGet() {
     Integer response = random.nextInt(6) + 1;
@@ -21,7 +21,7 @@ public final class RollController implements RollApi {
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
-  /** {@inheritDoc}} */
+  /** {@inheritDoc} */
   @Override
   public ResponseEntity<List<Integer>> rollPost(Integer n) {
     List<Integer> response = new ArrayList<>(n);

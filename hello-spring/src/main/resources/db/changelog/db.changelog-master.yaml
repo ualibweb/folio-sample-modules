@@ -1,1 +1,37 @@
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: createBookTable2
+      author: pax
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: page_count
+                  type: int
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: modifyBookTableColumns
+      author: pax
+      changes:
+        - modifyDataType:
+            tableName: book
+            columnName: name
+            newDataType: text
+        - dropNotNullConstraint:
+            tableName: book
+            columnName: page_count
+            columnDataType: int

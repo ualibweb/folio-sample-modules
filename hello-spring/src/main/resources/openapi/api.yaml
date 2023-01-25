@@ -89,8 +89,8 @@ paths:
                 $ref: ./schemas/SumResponse.yaml
   /roll:
     get:
-      summary: Roll a dice 
-      responses: 
+      summary: Roll a dice
+      responses:
         "200":
           description: A number from 1-6 represent the result of a dice Roll
           content:
@@ -119,6 +119,7 @@ paths:
                 example: [1, 2, 3, 4]
         "400":
           description: Bad Request. Number of rolls has to be an integer greater than or equal to 0.
-                    
-
-
+  /book:
+    $ref: ./paths/book.yaml
+  /book/{id}:
+    $ref: ./paths/book-id.yaml
