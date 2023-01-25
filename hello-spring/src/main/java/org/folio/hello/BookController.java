@@ -6,8 +6,9 @@ import java.util.Optional;
 import java.util.UUID;
 import org.folio.hello.api.BookApi;
 import org.folio.hello.domain.entity.Book;
+import org.folio.hello.domain.mapper.BookMapper;
 import org.folio.hello.model.BookInput;
-import org.folio.hello.model.BookObject;
+import org.folio.hello.model.BookWithId;
 import org.folio.hello.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,29 +21,19 @@ public final class BookController implements BookApi {
   @Autowired
   private BookRepository bookRepository;
 
-  /**
-   * Method to create response object
-   *
-   * @param response The response object to modify
-   * @param book The book object that holds the info
-   */
-  static void createResponse(BookObject response, Book book) {
-    response.setId(book.getId().toString());
-    response.setName(book.getName());
-    response.setPageCount(book.getPageCount());
-  }
+  @Autowired
+  private BookMapper bookMapper;
 
   /** {@inheritDoc} */
   @Override
-  public ResponseEntity<List<BookObject>> bookGet() {
+  public ResponseEntity<List<BookWithId>> bookGet() {
     List<Book> allBooks = bookRepository.findAll();
-    List<BookObject> response = new ArrayList<>();
+    List<BookWithId> response = new ArrayList<>();
 
     // Add books to the response object
     for (Book book : allBooks) {
-      BookObject bookInfo = new BookObject();
-      createResponse(bookInfo, book);
-      response.add(bookInfo);
+      BookWithId bookWithId = bookMapper.bookToBookWithId(book);
+      response.add(bookWithId);
     }
 
     return new ResponseEntity<>(response, HttpStatus.OK);
@@ -50,7 +41,7 @@ public final class BookController implements BookApi {
 
   /** {@inheritDoc} */
   @Override
-  public ResponseEntity<BookObject> bookPost(BookInput newBook) {
+  public ResponseEntity<BookWithId> bookPost(BookInput newBook) {
     Book book = Book
       .builder()
       .name(newBook.getName())
@@ -61,8 +52,7 @@ public final class BookController implements BookApi {
     bookRepository.save(book);
 
     // Create the response to response
-    BookObject response = new BookObject();
-    createResponse(response, book);
+    BookWithId response = bookMapper.bookToBookWithId(book);
 
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
@@ -82,10 +72,8 @@ public final class BookController implements BookApi {
 
   /** {@inheritDoc} */
   @Override
-  public ResponseEntity<BookObject> bookIdPut(UUID id, BookInput updatedBook) {
+  public ResponseEntity<BookWithId> bookIdPut(UUID id, BookInput updatedBook) {
     Optional<Book> bookOptional = bookRepository.findById(id);
-
-    BookObject response = new BookObject();
 
     // Check if the book with the the given UUID exists
     if (bookOptional.isPresent()) {
@@ -94,11 +82,11 @@ public final class BookController implements BookApi {
       bookToUpdate.setPageCount(updatedBook.getPageCount());
       bookRepository.save(bookToUpdate);
 
-      createResponse(response, bookToUpdate);
+      BookWithId response = bookMapper.bookToBookWithId(bookToUpdate);
+
+      return new ResponseEntity<>(response, HttpStatus.OK);
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-    return new ResponseEntity<>(response, HttpStatus.OK);
   }
 }

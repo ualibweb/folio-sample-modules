@@ -4,4 +4,5 @@ allOf:
     properties:
       id:
         type: string
+        format: uuid
 additionalProperties: false

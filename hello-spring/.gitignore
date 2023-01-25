@@ -45,7 +45,7 @@ buildNumber.properties
 .settings/
 
 # Vscode
-.vscode
+.vscode/
 
 # Environment variables
 .env
