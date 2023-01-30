@@ -10,7 +10,11 @@ delete:
       description: UUID of the book to delete
   responses:
     "200":
-      description: Successfully delete the selected book
+      description: The book deleted with its UUID
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/BookWithId.yaml
     "404":
       description: Book with the given UUID is not found
 put:
