@@ -18,7 +18,7 @@ post:
         schema:
           $ref: ../schemas/BookInput.yaml
   responses:
-    "200":
+    "201":
       description: The book added with its UUID
       content:
         application/json:

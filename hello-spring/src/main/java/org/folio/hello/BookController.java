@@ -57,19 +57,17 @@ public final class BookController implements BookApi {
     // Create the response to response
     BookWithId response = bookMapper.bookToBookWithId(book);
 
-    return new ResponseEntity<>(response, HttpStatus.OK);
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 
   /** {@inheritDoc} */
   @Override
-  public ResponseEntity<BookWithId> bookIdDelete(UUID id) {
+  public ResponseEntity<Void> bookIdDelete(UUID id) {
     // Delete the book by id
     if (bookRepository.existsById(id)) {
-      Book toBeDeletedBook = bookRepository.findById(id).get();
-      BookWithId response = bookMapper.bookToBookWithId(toBeDeletedBook);
       bookRepository.deleteById(id);
 
-      return new ResponseEntity<>(response, HttpStatus.OK);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

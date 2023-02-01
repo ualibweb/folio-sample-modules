@@ -79,7 +79,7 @@ public class BookTest extends BaseIntegrationTest {
       .header("Content-Type", "application/json")
       .body("{\"name\": \"testPost\", \"page_count\": 190}")
       .post(getRequestUrl("/book"));
-    response.then().statusCode(200);
+    response.then().statusCode(201);
 
     BookWithId postedBook = response.getBody().as(BookWithId.class);
     ids.add(postedBook.getId());
@@ -93,11 +93,7 @@ public class BookTest extends BaseIntegrationTest {
     Response response = ra()
       .pathParam("id", ids.get(0).toString())
       .delete(getRequestUrl("/book/{id}"));
-    response.then().statusCode(200);
-
-    BookWithId deletedBook = response.getBody().as(BookWithId.class);
-    assertThat(deletedBook.getName(), is(equalTo(names[0])));
-    assertThat(deletedBook.getPageCount(), is(equalTo(pageCounts[0])));
+    response.then().statusCode(204);
   }
 
   @Test
