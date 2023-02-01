@@ -6,4 +6,3 @@ properties:
     type: integer
 required:
   - name
-additionalProperties: false

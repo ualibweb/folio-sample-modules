@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.extern.log4j.Log4j2;
 import org.folio.hello.api.BookApi;
 import org.folio.hello.domain.entity.Book;
 import org.folio.hello.domain.mapper.BookMapper;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+@Log4j2
 @RestController
 public final class BookController implements BookApi {
 
@@ -42,6 +44,7 @@ public final class BookController implements BookApi {
   /** {@inheritDoc} */
   @Override
   public ResponseEntity<BookWithId> bookPost(BookInput newBook) {
+    log.info(newBook.toString());
     Book book = Book
       .builder()
       .name(newBook.getName())
@@ -54,7 +57,7 @@ public final class BookController implements BookApi {
     // Create the response to response
     BookWithId response = bookMapper.bookToBookWithId(book);
 
-    return new ResponseEntity<>(response, HttpStatus.OK);
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 
   /** {@inheritDoc} */
@@ -63,11 +66,11 @@ public final class BookController implements BookApi {
     // Delete the book by id
     if (bookRepository.existsById(id)) {
       bookRepository.deleteById(id);
+
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   /** {@inheritDoc} */

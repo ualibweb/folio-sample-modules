@@ -9,8 +9,8 @@ delete:
       required: true
       description: UUID of the book to delete
   responses:
-    "200":
-      description: Successfully delete the selected book
+    "204":
+      description: Book is deleted successfully
     "404":
       description: Book with the given UUID is not found
 put:
